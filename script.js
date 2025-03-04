@@ -24,13 +24,22 @@ searchButton.addEventListener("click", (e) => {
 });
 
 async function getWeatherData(location) {
-  const response = await fetch(
-    `https://api.weatherapi.com/v1/current.json?key=c644132ade9244c0ad960006250303&q=${location}`
-  );
+  try {
+    const response = await fetch(
+      `https://api.weatherapi.com/v1/current.json?key=c644132ade9244c0ad960006250303&q=${location}`
+    );
 
-  const weatherData = await response.json();
-  console.log(weatherData);
-  return weatherData;
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const weatherData = await response.json();
+    console.log(weatherData);
+    return weatherData;
+  } catch (error) {
+    console.error("Failed to fetch weather data:", error);
+    return null; // or handle it accordingly
+  }
 }
 
 function processData(weatherData) {
