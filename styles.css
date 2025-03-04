@@ -162,3 +162,74 @@ body {
     background: #f1f1f1;
   }
 }
+
+#location-text {
+  font-family: "Noto Sans", sans-serif;
+  text-transform: uppercase;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.result-container,
+.result-container2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#inner-container-1 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+#inner-container-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#inner-container-3 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  font-size: 4em;
+  padding: 1rem;
+  padding-left: 0;
+  border-right: 1px solid #ffffff;
+}
+
+#inner-container-4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75em;
+  padding: 1rem;
+  font-weight: 100;
+}
+
+img {
+  margin: 1rem;
+  width: 3rem;
+  height: 3rem;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
