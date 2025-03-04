@@ -26,7 +26,10 @@ searchButton.addEventListener("click", (e) => {
 async function getWeatherData(location) {
   try {
     const response = await fetch(
-      `https://api.weatherapi.com/v1/current.json?key=c644132ade9244c0ad960006250303&q=${location}`
+      `https://api.weatherapi.com/v1/current.json?key=c644132ade9244c0ad960006250303&q=${location}`,
+      {
+        mode: "cors",
+      }
     );
 
     if (!response.ok) {
