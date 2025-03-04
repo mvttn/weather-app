@@ -8,9 +8,27 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <div id="input-container">
-      <input type="text" id="locationInput" placeholder="Enter city or address" />
+    <div class="search-bar">
+      <input
+        type="search"
+        name="search"
+        pattern=".*\S.*"
+        id="location-input"
+        placeholder="Enter your location"
+        required
+      />
+      <button class="search-btn"></button>
     </div>
-    <div id="weatherResult"></div>
+
+    <div id="weatherResult">
+      <p id="conditions"></p>
+      <p id="location"></p>
+      <p id="temperature"></p>
+      <div class="container">
+        <p id="feels-like"></p>
+        <p id="uv"></p>
+        <p id="wind"></p>
+      </div>
+    </div>
   </body>
 </html>

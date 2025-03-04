@@ -1,3 +1,18 @@
+const locationInput = document.querySelector("#location-input");
+locationInput.addEventListener("keydown", (e) => {
+  if (e.code === "Enter") {
+    fetchWeather();
+  }
+});
+
+const searchButton = document.querySelector(".search-btn");
+searchButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (document.activeElement === searchButton) {
+    fetchWeather();
+  }
+});
+
 async function getWeatherData(location) {
   const response = await fetch(
     `http://api.weatherapi.com/v1/current.json?key=c644132ade9244c0ad960006250303&q=${location}`
@@ -16,14 +31,14 @@ function processData(weatherData) {
     conditions: weatherData.current.condition.text,
     feelsLike: Math.round(weatherData.current.feelslike_c),
     currentTemp: Math.round(weatherData.current.temp_c),
+    uv: Math.round(weatherData.current.uv),
     wind: Math.round(weatherData.current.wind_kph),
     iconUrl: weatherData.current.condition.icon,
   };
 }
 
 const fetchWeather = async () => {
-  const location = document.getElementById("locationInput").value;
-  if (!location) {
+  if (!locationInput.value) {
     alert("Please enter a location!");
     return;
   }
