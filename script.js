@@ -1,25 +1,41 @@
-async function getWeatherDataForLocation(location) {
-  const API_KEY = config.WEATHER_API_KEY;
+async function getWeatherData(location) {
   const response = await fetch(
-    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=${API_KEY}`
+    `http://api.weatherapi.com/v1/current.json?key=c644132ade9244c0ad960006250303&q=${location}`
   );
 
-  const weatherDataJson = await response.json();
-  console.log(weatherDataJson);
-  return weatherDataJson;
+  const weatherData = await response.json();
+  console.log(weatherData);
+  return weatherData;
 }
 
-function processData(weatherDataJson) {
+function processData(weatherData) {
   return {
-    address: weatherDataJson.resolvedAddress,
-    datetime: weatherDataJson.currentConditions.datetime,
-    condition: weatherDataJson.currentConditions.conditions,
-    sunrise: weatherDataJson.currentConditions.sunrise,
-    sunset: weatherDataJson.currentConditions.sunset,
-    currentTemp: weatherDataJson.currentConditions.temp,
+    locationName: weatherData.location.name,
+    country: weatherData.location.country,
+    region: weatherData.location.region,
+    conditions: weatherData.current.condition.text,
+    feelsLike: Math.round(weatherData.current.feelslike_c),
+    currentTemp: Math.round(weatherData.current.temp_c),
+    wind: Math.round(weatherData.current.wind_kph),
+    iconUrl: weatherData.current.condition.icon,
   };
 }
-(async () => {
-  const data = await getWeatherDataForLocation("Sydney");
-  console.log(processData(data));
-})();
+
+const fetchWeather = async () => {
+  const location = document.getElementById("locationInput").value;
+  if (!location) {
+    alert("Please enter a location!");
+    return;
+  }
+
+  const data = await getWeatherData(location);
+  const processedData = processData(data);
+  console.log(processedData);
+
+  const weatherIcon = document.createElement("img");
+  weatherIcon.src = processedData.iconUrl;
+  document.body.appendChild(weatherIcon);
+  const conditionText = document.createElement("h2");
+  conditionText.textContent = processedData.conditions;
+  document.body.appendChild(conditionText);
+};
